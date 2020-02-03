@@ -2,7 +2,7 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 
 class SalsifyTokenSource extends RESTDataSource {
   willSendRequest(request) {
-    request.headers.set('Authorization', 'Bearer ' + 'token here');
+    request.headers.set('Authorization', 'Bearer ' + process.env.SALSIFY_KEY);
   }
 }
 

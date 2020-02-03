@@ -12,8 +12,6 @@ const server = new ApolloServer({
   })
 });
 
-console.log('heroku port: '+process.env.PORT);
-
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
