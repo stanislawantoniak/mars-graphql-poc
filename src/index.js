@@ -9,7 +9,10 @@ const server = new ApolloServer({
   resolvers,
   dataSources: () => ({
     productAPI: new ProductAPI()
-  })
+  }),
+  engine: {
+    apiKey: "service:mars-product:_pyG0ebYu836sW9FLHnj8A",
+  }
 });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
