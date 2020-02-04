@@ -14,7 +14,7 @@ class ProductAPI extends SalsifyTokenSource {
   }
 
   async getAllProducts() {
-  const response = this.get('products');
+  const response = await this.get('products');
   return Array.isArray(response.data)
     ? response.data.map(product => this.productReducer(product))
     : [];
@@ -67,7 +67,7 @@ assetReducer(asset) {
  
 async getProductById( id ) {
   console.log('getting product: '+id);
-  const response = this.get('products/'+id);
+  const response = await this.get('products/'+id);
   return this.productReducer(response);
 }
 

@@ -19,7 +19,7 @@ module.exports = {
         message: updateResult.status < 300
             ? 'product updated'
             : `error updating product`,
-        productResult
+        product: productResult
       }
     }
   }
