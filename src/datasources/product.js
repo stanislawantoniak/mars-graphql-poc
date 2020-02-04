@@ -66,11 +66,13 @@ assetReducer(asset) {
 }
  
 async getProductById( id ) {
+  console.log('getting product: '+product.id);
   const response = this.get('products/'+id);
   return this.productReducer(response);
 }
 
 async updateProduct(product){
+  console.log('updating product: '+product.id);
   const response = await this.put('products/'+product.id,this.salsifyTransform(product));
   return response;
 }
