@@ -12,10 +12,11 @@ module.exports = {
 
       console.log('updateResult::'+JSON.stringify(updateResult));
 
+      console.log('productResult::'+JSON.stringify(productResult));
+
       return {
-        success: updateResult.status < 300,
-        message:
-         updateResult.status < 300
+        success: true,
+        message: updateResult.status < 300
             ? 'product updated'
             : `error updating product`,
         productResult
