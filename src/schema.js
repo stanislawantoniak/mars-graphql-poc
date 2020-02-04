@@ -28,6 +28,26 @@ type Query {
   product(id: ID!): Product
 }
 
+type UpdateProductResponse {
+  success: Boolean!
+  message: String!
+  product: Product
+}
+ 
+input ProductInput {
+  id: String!
+  name: String
+  brand: String
+  description: String
+  cost: Float
+  sapProductTitle: String
+  retailPrice: Float
+}
+
+type Mutation {
+  updateProduct(product: ProductInput!): UpdateProductResponse
+}
+
 `;
 
 module.exports = typeDefs;

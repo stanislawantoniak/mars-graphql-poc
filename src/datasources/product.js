@@ -14,14 +14,14 @@ class ProductAPI extends SalsifyTokenSource {
   }
 
   async getAllProducts() {
-  const response = await this.get('products');
+  const response = this.get('products');
   return Array.isArray(response.data)
     ? response.data.map(product => this.productReducer(product))
     : [];
   }
 
 checkId(item){
-  console.log('this in checkId'+this);
+  console.log('this in checkId: '+this);
   return item == null
   ? false
   : item['salsify:id'] == this
@@ -54,7 +54,6 @@ productReducer(product) {
 }
 
 assetReducer(asset) {
-  console.log('asset::'+asset);
   return asset == null
   ? null
   :{
@@ -67,8 +66,27 @@ assetReducer(asset) {
 }
  
 async getProductById( id ) {
-  const response = await this.get('products/'+id);
+  const response = this.get('products/'+id);
   return this.productReducer(response);
+}
+
+async updateProduct(product){
+  const response = await this.put('products/'+product.id,this.salsifyTransform(product));
+  return response;
+}
+
+salsifyTransform(product){
+
+  const productInput = {};
+   if (product.hasOwnProperty('name')) productInput['Product name'] = product.name;
+   if (product.hasOwnProperty('brand')) productInput.Brand = product.brand;
+   if (product.hasOwnProperty('description')) productInput.Descriptions = product.description;
+   if (product.hasOwnProperty('sapProductTitle')) productInput['SAP Product Title'] = product.sapProductTitle;
+   if (product.hasOwnProperty('cost')) productInput.cost = product.cost;
+   if (product.hasOwnProperty('retailPrice')) productInput['Retail Price'] = product.retailPrice;
+
+   return productInput;
+
 }
 
 }
