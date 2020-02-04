@@ -10,7 +10,7 @@ module.exports = {
       const updateResult = await dataSources.productAPI.updateProduct(product);
       const productResult = await dataSources.productAPI.getProductById(product.id);
 
-      console.log('updateResult::'+JSON.stringify(updateResult);
+      console.log('updateResult::'+JSON.stringify(updateResult));
 
       return {
         success: updateResult.status < 300,
