@@ -11,9 +11,9 @@ module.exports = {
       const productResult = await dataSources.productAPI.getProductById(product.id);
 
       return {
-        success: updateResult,
+        success: updateResult.status < 300,
         message:
-         updateResult
+         updateResult.status < 300
             ? 'product updated'
             : `error updating product`,
         productResult
