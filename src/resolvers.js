@@ -8,7 +8,7 @@ module.exports = {
   Mutation: {
     updateProduct: async (_, {product}, {dataSources}) => {
       const updateResult = await dataSources.productAPI.updateProduct(product);
-      const productResult = await dataSources.productAPI.getProductById(product.id);
+      const productResult = dataSources.productAPI.getProductById(product.id);
 
       console.log('updateResult::'+JSON.stringify(updateResult));
 
@@ -16,9 +16,7 @@ module.exports = {
 
       return {
         success: true,
-        message: updateResult.status < 300
-            ? 'product updated'
-            : `error updating product`,
+        message: 'product updated',
         product: productResult
       }
     }
