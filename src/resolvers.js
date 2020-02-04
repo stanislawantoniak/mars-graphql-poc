@@ -12,8 +12,6 @@ module.exports = {
 
       console.log('updateResult::'+JSON.stringify(updateResult));
 
-      console.log('productResult::'+JSON.stringify(productResult));
-
       return {
         success: true,
         message: 'product updated',
