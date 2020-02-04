@@ -73,7 +73,11 @@ async getProductById( id ) {
 
 async updateProduct(product){
   console.log('updating product: '+product.id);
-  const response = await this.put('products/'+product.id,this.salsifyTransform(product));
+
+  const salsifyProduct = this.salsifyTransform(product);
+
+  console.log('salsifyProduct:'+JSON.stringify(salsifyProduct));
+  const response = await this.put('products/'+product.id,salsifyProduct);
   return response;
 }
 
