@@ -29,7 +29,7 @@ checkId(item){
 
 getImageFromAssets(assetArray, id){
 
-  const asset = (assetArray == null
+  const asset = (assetArray == null || id == null
   ? null
   : assetArray.find(this.checkId,id));
 
