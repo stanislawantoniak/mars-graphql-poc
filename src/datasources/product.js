@@ -78,6 +78,7 @@ async updateProduct(product){
 
   console.log('salsifyProduct:'+JSON.stringify(salsifyProduct));
   const response = await this.put('products/'+product.id,salsifyProduct);
+  console.log('update response:'+JSON.stringify(response));
   return response;
 }
 
