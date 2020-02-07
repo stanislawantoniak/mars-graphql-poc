@@ -11,7 +11,7 @@ const server = new ApolloServer({
     productAPI: new ProductAPI()
   }),
   engine: {
-    apiKey: "service:mars-product:_pyG0ebYu836sW9FLHnj8A",
+    apiKey: "service:"+process.env.GQL_SCHEMA_NAME+":"+process.env.ENGINE_API_KEY
   }
 });
 

@@ -13,88 +13,87 @@ class ProductAPI extends SalsifyTokenSource {
     this.baseURL = 'https://app.salsify.com/api/v1/orgs/s-81e351da-195f-412c-8fd8-f011973f6ab1/';
   }
 
-  async getAllProducts() {
-  const response = await this.get('products');
-  return Array.isArray(response.data)
-    ? response.data.map(product => this.productReducer(product))
-    : [];
+  async getProductById( id ) {
+    console.log('getting product: '+id);
+    const response = await this.get('products/'+id);
+    return this.productReducer(response);
   }
 
-checkId(item){
-  console.log('this in checkId: '+this);
-  return item == null
-  ? false
-  : item['salsify:id'] == this
-}
+  async getAllProducts() {
+    const response = await this.get('products');
+    return Array.isArray(response.data)
+      ? response.data.map(product => this.productReducer(product))
+      : [];
+  }
 
-getImageFromAssets(assetArray, id){
+  async updateProduct(product){
+    console.log('updating product: '+product.id);
 
-  const asset = (assetArray == null || id == null
-  ? null
-  : assetArray.find(this.checkId,id));
+    const salsifyProduct = this.salsifyTransform(product);
 
-  return asset;
+    console.log('salsifyProduct:'+JSON.stringify(salsifyProduct));
+    const response = await this.put('products/'+product.id,salsifyProduct);
+    console.log('update response:'+JSON.stringify(response));
+    return response;
+  }
 
-}
+  checkId(item){
+    console.log('this in checkId: '+this);
+    return item == null
+      ? false
+      : item['salsify:id'] == this
+  }
 
-productReducer(product) {
+  getImageFromAssets(assetArray, id){
+    const asset = (assetArray == null || id == null
+      ? null
+      : assetArray.find(this.checkId,id));
 
-  return {
-    id: product["salsify:id"] || 0,
-    name: product["Product name"],
-    brand: product.Brand,
-    description: product.Descriptions,
-    sapProductTitle: product['SAP Product Title'],
-    cost: product.cost,
-    retailPrice: product['Retail Price'],
-    mainImage: this.assetReducer(this.getImageFromAssets(product['salsify:digital_assets'],product['Main Image (Front)'])),
-    backImage: this.assetReducer(this.getImageFromAssets(product['salsify:digital_assets'],product['Back Image'])),
-    assets: product['salsify:digital_assets'] == null ? [] : product['salsify:digital_assets'].map(asset => this.assetReducer(asset))
+    return asset;
+
+  }
+
+  productReducer(product) {
+
+    return {
+      id: product["salsify:id"] || 0,
+      name: product["Product name"],
+      brand: product.Brand,
+      description: product.Descriptions,
+      sapProductTitle: product['SAP Product Title'],
+      cost: product.cost,
+      retailPrice: product['Retail Price'],
+      mainImage: this.assetReducer(this.getImageFromAssets(product['salsify:digital_assets'],product['Main Image (Front)'])),
+      backImage: this.assetReducer(this.getImageFromAssets(product['salsify:digital_assets'],product['Back Image'])),
+      assets: product['salsify:digital_assets'] == null ? [] : product['salsify:digital_assets'].map(asset => this.assetReducer(asset))
   };
 }
 
-assetReducer(asset) {
-  return asset == null
-  ? null
-  :{
-    id: asset['salsify:id'] || 0,
-    url: asset['salsify:url'],
-    format: asset['salsify:format'],
-    bytes: asset['salsify:bytes'],
-    status: asset['salsify:status']
-  };
-}
+  assetReducer(asset) {
+    return asset == null
+      ? null
+      :{
+        id: asset['salsify:id'] || 0,
+        url: asset['salsify:url'],
+        format: asset['salsify:format'],
+        bytes: asset['salsify:bytes'],
+        status: asset['salsify:status']
+      };
+  }
  
-async getProductById( id ) {
-  console.log('getting product: '+id);
-  const response = await this.get('products/'+id);
-  return this.productReducer(response);
-}
+  
+  salsifyTransform(product){
 
-async updateProduct(product){
-  console.log('updating product: '+product.id);
+    const productInput = {};
+      if (product.hasOwnProperty('name')) productInput['Product name'] = product.name;
+      if (product.hasOwnProperty('brand')) productInput.Brand = product.brand;
+      if (product.hasOwnProperty('description')) productInput.Descriptions = product.description;
+      if (product.hasOwnProperty('sapProductTitle')) productInput['SAP Product Title'] = product.sapProductTitle;
+      if (product.hasOwnProperty('cost')) productInput.cost = product.cost;
+      if (product.hasOwnProperty('retailPrice')) productInput['Retail Price'] = product.retailPrice;
 
-  const salsifyProduct = this.salsifyTransform(product);
-
-  console.log('salsifyProduct:'+JSON.stringify(salsifyProduct));
-  const response = await this.put('products/'+product.id,salsifyProduct);
-  console.log('update response:'+JSON.stringify(response));
-  return response;
-}
-
-salsifyTransform(product){
-
-  const productInput = {};
-   if (product.hasOwnProperty('name')) productInput['Product name'] = product.name;
-   if (product.hasOwnProperty('brand')) productInput.Brand = product.brand;
-   if (product.hasOwnProperty('description')) productInput.Descriptions = product.description;
-   if (product.hasOwnProperty('sapProductTitle')) productInput['SAP Product Title'] = product.sapProductTitle;
-   if (product.hasOwnProperty('cost')) productInput.cost = product.cost;
-   if (product.hasOwnProperty('retailPrice')) productInput['Retail Price'] = product.retailPrice;
-
-   return productInput;
-
-}
+    return productInput;
+  }
 
 }
 
