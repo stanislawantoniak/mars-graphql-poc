@@ -13,12 +13,13 @@ type Product {
   retailPrice: Float
   backImage: Asset
   mainImage: Asset
-  assets: [Asset]!
+  digitalAssets: [Asset]!
 }
 
 type Asset {
   id: ID!
   url: String
+  name: String
   format: String
   status: String
   bytes: Int

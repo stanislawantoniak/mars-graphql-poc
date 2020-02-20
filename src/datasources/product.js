@@ -66,7 +66,7 @@ class ProductAPI extends SalsifyTokenSource {
       retailPrice: product['Retail Price'],
       mainImage: this.assetReducer(this.getImageFromAssets(product['salsify:digital_assets'],product['Main Image (Front)'])),
       backImage: this.assetReducer(this.getImageFromAssets(product['salsify:digital_assets'],product['Back Image'])),
-      assets: product['salsify:digital_assets'] == null ? [] : product['salsify:digital_assets'].map(asset => this.assetReducer(asset))
+      digitalAssets: product['salsify:digital_assets'] == null ? [] : product['salsify:digital_assets'].map(asset => this.assetReducer(asset))
   };
 }
 
@@ -76,6 +76,7 @@ class ProductAPI extends SalsifyTokenSource {
       :{
         id: asset['salsify:id'] || 0,
         url: asset['salsify:url'],
+        name: asset['salsify:name'],
         format: asset['salsify:format'],
         bytes: asset['salsify:bytes'],
         status: asset['salsify:status']
