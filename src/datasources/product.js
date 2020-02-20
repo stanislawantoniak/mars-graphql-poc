@@ -57,6 +57,7 @@ class ProductAPI extends SalsifyTokenSource {
 
     return {
       id: product["salsify:id"] || 0,
+      systemId: product["salsify:system_id"],
       name: product["Product name"],
       brand: product.Brand,
       description: product.Descriptions,
