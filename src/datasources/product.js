@@ -61,7 +61,7 @@ class ProductAPI extends SalsifyTokenSource {
       name: product["Product name"],
       brand: product.Brand,
       description: product.Descriptions,
-      sapProductTitle: product['SAP Product Title'],
+      SAPProductTitle: product['SAP Product Title'],
       cost: product.cost,
       retailPrice: product['Retail Price'],
       mainImage: this.assetReducer(this.getImageFromAssets(product['salsify:digital_assets'],product['Main Image (Front)'])),

@@ -9,7 +9,7 @@ type Product {
   brand: String
   description: String
   cost: Float
-  sapProductTitle: String
+  SAPProductTitle: String
   retailPrice: Float
   backImage: Asset
   mainImage: Asset
