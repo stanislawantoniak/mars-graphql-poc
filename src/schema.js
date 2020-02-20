@@ -4,7 +4,7 @@ const typeDefs = gql`
 
 type Product {
   id: ID!
-  systemId
+  systemId: String
   name: String
   brand: String
   description: String
