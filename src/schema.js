@@ -18,7 +18,7 @@ type Product {
 
 type Asset {
   id: ID!
-  url: String
+  URL: String
   name: String
   format: String
   status: String

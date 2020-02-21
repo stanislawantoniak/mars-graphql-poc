@@ -75,7 +75,7 @@ class ProductAPI extends SalsifyTokenSource {
       ? null
       :{
         id: asset['salsify:id'] || 0,
-        url: asset['salsify:url'],
+        URL: asset['salsify:url'],
         name: asset['salsify:name'],
         format: asset['salsify:format'],
         bytes: asset['salsify:bytes'],
