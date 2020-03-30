@@ -25,7 +25,7 @@ class ProductAPI extends SalsifyTokenSource {
       ? response.data.map(product => this.productReducer(product))
       : [];
   }
-
+  
   async updateProduct(product){
     console.log('updating product: '+product.id);
 
